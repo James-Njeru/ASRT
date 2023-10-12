@@ -1,3 +1,4 @@
+
 package com.example.asrt.service;
 
 import java.util.Arrays;
@@ -13,12 +14,13 @@ import com.example.asrt.repository.EmployeeRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+
 	private EmployeeRepository employeeRepository;
-	
+
 	public CustomUserDetailsService(EmployeeRepository employeeRepository) {
 		this.employeeRepository = employeeRepository;
 	}
-	
+
 	public UserDetails loadUserByUsername(String staffNo) throws UsernameNotFoundException {
 		Employee employee = employeeRepository.findUserByStaffId(staffNo);
 		if (employee == null) {
@@ -26,11 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 		}
 		//List<String> roles = Arrays.asList(employee.getJob_position());
 		UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
-				.username(employee.getStaff_id())
-				.password(employee.getPassword())
-				.roles("USER")
-				.build();
-		
+				.username(employee.getStaff_id()).password(employee.getPassword()).roles("USER").build();
+
 		return userDetails;
 	}
+
 }

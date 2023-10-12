@@ -1,3 +1,4 @@
+
 package com.example.asrt.model;
 
 import jakarta.persistence.Entity;
@@ -5,6 +6,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Employee {
+
 	@Id
 	private String staff_id;
 	private String staff_name;
@@ -13,7 +15,7 @@ public class Employee {
 	private String address;
 	private String job_position;
 	private String password;
-	
+
 	public Employee() {
 	}
 

@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -17,21 +16,14 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.httpBasic().and().authorizeHttpRequests().anyRequest().authenticated();
 		http.formLogin();
-		http.cors().disable().csrf().disable(); //POST, PUT, and DELETE
+		http.cors().disable().csrf().disable();
 
 		return http.build();
 	}
 
-	
-	/*
-	 * @SuppressWarnings("deprecation")
-	 * 
-	 * @Bean public NoOpPasswordEncoder passwordEncoder() { return
-	 * (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance(); }
-	 */
+	@Bean
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-	
-	  @Bean public PasswordEncoder encoder() { return new BCryptPasswordEncoder();
-	  }
-	 
 }
